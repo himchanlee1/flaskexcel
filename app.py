@@ -1,6 +1,6 @@
 
-from flask import Flask, request, jsonify 
-import sys
+from flask import Flask 
+
 # Flask 애플리케이션 생성
 app = Flask(__name__) 
 '''
@@ -40,7 +40,6 @@ def message():
     data = request.get_json()
     data = data['bot']['id']
     print(data)
-    # content = data['content']  # 사용자의 메시지 내용
 
 
     response = {
