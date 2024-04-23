@@ -37,8 +37,6 @@ def hello_world():
 @app.route('/m', methods=['POST']) # Test
 def message():
     print('/message로 넘어왔습니다.')
-    data = request.get_json()
-    data = data['bot']['id']
     print(data)
 
 
@@ -50,7 +48,7 @@ def message():
                     "text": "응답 메시지"
                 },
                 "output" : {
-                    "data": data
+                    "data": "hello"
                 }
             }]
         }
