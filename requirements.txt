@@ -1,7 +1,6 @@
 -i https://pypi.org/simple
 flask==2.2.2
 
-easyocr==1.7.1 
 opencv_python==4.8.0.74
 opencv_python_headless==4.9.0.80
 openpyxl==3.1.2
