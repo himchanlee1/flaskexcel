@@ -1,5 +1,5 @@
 
-from flask import Flask, jsonify 
+from flask import Flask, jsonify
 
 # Flask 애플리케이션 생성
 app = Flask(__name__) 
@@ -45,9 +45,6 @@ def message():
             "outputs": [{
                 "simpleText": {
                     "text": "응답 메시지"
-                },
-                "output" : {
-                    "data": "hello"
                 }
             }]
         }
