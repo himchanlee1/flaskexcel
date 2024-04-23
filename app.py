@@ -57,4 +57,4 @@ def message():
 
 # 애플리케이션 실행
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=8080, debug=True)
+    app.run(host='0.0.0.0',port=8080)
