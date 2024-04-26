@@ -1,5 +1,5 @@
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 # Flask 애플리케이션 생성
 app = Flask(__name__) 
@@ -49,6 +49,31 @@ def message():
             }]
         }
     } 
+    return jsonify(response)
+
+
+@app.route('/getInfo', methods=['POST'])
+def getInfo():
+    json = request.get_json()
+    params = json['action']['params']
+
+    name = params['이름']
+    ename = params['영어이름']
+    mail = params['메일']
+    pw = params['비밀번호']
+    hosmail = params['원내메일']
+
+    response = {
+        "version": "2.0",
+        "template": {
+            "outputs": [{
+                "simpleText": {
+                    "text": "입력된 값: {}/{}/{}/{}/{}".format(name, ename, mail, pw, hosmail)
+                }
+            }]
+        }
+    } 
+
     return jsonify(response)
  
 
