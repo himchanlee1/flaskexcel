@@ -44,7 +44,7 @@ def message():
         "template": {
             "outputs": [{
                 "simpleText": {
-                    "text": "응답 메시지"
+                    "text": "초기 설정에 대한 응답 메시지"
                 }
             }]
         }
