@@ -73,9 +73,31 @@ def getInfo():
             }]
         }
     } 
-
     return jsonify(response)
  
+@app.route('/getName', methods=['POST'])
+def getName():
+    json = request.get_json()
+    param = json['action']['params']
+
+    name = param['이름']
+    
+    # setting JSON에 저장했다고 치고~
+
+    response = {
+        "version": "2.0",
+        "template": {
+            "outputs": [{
+                "simpleText": {
+                    "text": "입력된 이름 : {}".format(name)
+                }
+            }]
+        }
+    }
+    return jsonify(response)
+
+
+
 
 # 애플리케이션 실행
 if __name__ == '__main__':
