@@ -104,8 +104,13 @@ def gettime():
     param = json['action']['params']
     print('gettime 연결됨')
     print(json)
-    time = param['sys_text']
-    
+    time = param['sys_text'] 
+    # '/' 기준으로 문자열을 나누기
+    split_text = time.split('/')
+    pickup_date = split_text[0]
+    pickup_time = split_text[1]
+    blood_time = split_text[2]
+
 
     # setting JSON에 저장했다고 치고~
 
