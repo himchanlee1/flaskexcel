@@ -82,7 +82,7 @@ def getName():
     print('getName 연결됨')
     print(json)
     name = param['sys_text']
-    name = name.split('')[1]
+    
 
     # setting JSON에 저장했다고 치고~
 
