@@ -80,6 +80,7 @@ def getName():
     json = request.get_json()
     param = json['action']['params']
     print('getName 연결됨')
+    print(json)
     name = param['이름']
 
     # setting JSON에 저장했다고 치고~
