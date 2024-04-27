@@ -81,7 +81,8 @@ def getName():
     param = json['action']['params']
     print('getName 연결됨')
     print(json)
-    name = param['이름']
+    name = param['sys_text']
+    name = name.split('')[1]
 
     # setting JSON에 저장했다고 치고~
 
