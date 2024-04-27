@@ -98,6 +98,28 @@ def getName():
     }
     return jsonify(response)
 
+@app.route('/gettime', methods=['POST'])
+def gettime():
+    json = request.get_json()
+    param = json['action']['params']
+    print('gettime 연결됨')
+    print(json)
+    time = param['sys_text']
+    
+
+    # setting JSON에 저장했다고 치고~
+
+    response = {
+        "version": "2.0",
+        "template": {
+            "outputs": [{
+                "simpleText": {
+                    "text": "입력된 time : {}".format(time)
+                }
+            }]
+        }
+    }
+    return jsonify(response)
 
 
 
