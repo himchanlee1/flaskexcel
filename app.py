@@ -79,9 +79,9 @@ def getInfo():
 def getName():
     json = request.get_json()
     param = json['action']['params']
-
+    print('getName 연결됨')
     name = param['이름']
-    
+
     # setting JSON에 저장했다고 치고~
 
     response = {
