@@ -8,6 +8,7 @@ Q. 안녕하세요, GI/GU team DHL 배송 입력기 입니다, 초기세팅에 �
 A
 이름 :  # 엑셀 H5 부분에 기입
 영어이름 : # invoice shippers name (200,745)에 기입
+전화번호 : # 엑셀 I5 부분에 기입
 네이버 이메일 :  # ID
 네이버 비밀번호 : # PW
 invoice 받을 원내 이메일 : #himchan1.lee@sbri.co.kr(각자 원내 아이디 입력)
