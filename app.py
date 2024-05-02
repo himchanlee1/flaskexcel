@@ -74,12 +74,32 @@ def getName():
         }
     })
 
+@app.route('/gettime', methods=['POST'])
+def gettime():
+    time = request.get_json().get('action', {}).get('params', {}).get('sys_text', '')
+    split_text = time.split('/')
+    if len(split_text) < 3:
+        response_text = "시간 형식이 올바르지 않습니다."
+    else:
+        pickup_date, pickup_time, blood_time = split_text
+        response_text = f"입력된 time : {pickup_date}, {pickup_time}, {blood_time}"
+
+    return jsonify({
+        "version": "2.0",
+        "template": {
+            "outputs": [{
+                "simpleText": {
+                    "text": response_text
+                }
+            }]
+        }
+    })
+
 @app.route('/validateData', methods=['POST'])
 def validate_data():
     input_data = request.get_json()
     errors = validate_input(input_data)
     results = {'errors': errors, 'valid': not errors}
-
     with open('results.json', 'w') as file:
         json.dump(results, file, indent=4)
 
