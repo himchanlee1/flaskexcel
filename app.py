@@ -66,7 +66,7 @@ def getName():
     print(name)
     datas = list(name.split('/'))
     print(datas)
-    if len(datas) == 5:
+    if len(datas) == 6:
         data = {
             '이름': datas[0],
             '영어이름': datas[1],
