@@ -63,7 +63,8 @@ def getInfo():
 def getName():
     name = request.get_json().get('action', {}).get('params', {}).get('sys_text', '이름 없음')
     # 저장
-    datas = name.split('/')
+    datas = list(name.split('/'))
+    print(datas)
     data = {
         '이름': datas[0],
         '영어이름': datas[1],
