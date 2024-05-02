@@ -61,8 +61,9 @@ def getInfo():
 
 @app.route('/getName', methods=['POST'])
 def getName():
-    name = request.get_json().get('action', {}).get('params', {}).get('sys_text', '이름 없음')
+    name = request.get_json()['action']['params']['sys_text']
     # 저장
+    print(name)
     datas = list(name.split('/'))
     print(datas)
     data = {
@@ -96,7 +97,7 @@ def getName():
 
 @app.route('/gettime', methods=['POST'])
 def gettime():
-    time = request.get_json().get('action', {}).get('params', {}).get('sys_text', '')
+    time = request.get_json()['action']['params']['sys_text']
     split_text = time.split('/')
     if len(split_text) < 3:
         response_text = "시간 형식이 올바르지 않습니다."
@@ -118,7 +119,8 @@ def gettime():
 @app.route('/validateData', methods=['POST'])
 def validate_data():
     print('validation 시작.')
-    input_data = request.get_json()
+    input_data = request.get_json()['action']['params']['sys_text']
+    print('input_data:', input_data)
     errors = validate_input(input_data)
     results = {'errors': errors, 'valid': not errors}
     with open('results.json', 'w') as file:
