@@ -138,6 +138,8 @@ def validate_data():
             isValid = {
                 'valid': 1
             } 
+        with open('validation.json', 'w') as f:
+            json.dump(isValid, f)
 
         response_text = "검증 오류: " + ", ".join(errors) if errors else "모든 입력이 정상적으로 검증되었습니다."
         return jsonify({
