@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
-import json
-import re
+import json, re, os
 
 app = Flask(__name__)
 
@@ -63,6 +62,26 @@ def getInfo():
 @app.route('/getName', methods=['POST'])
 def getName():
     name = request.get_json().get('action', {}).get('params', {}).get('sys_text', '이름 없음')
+    # 저장
+    datas = name.split('/')
+    data = {
+        '이름': datas[0],
+        '영어이름': datas[1],
+        '번호': data[2],
+        '메일': data[3],
+        '비밀번호': data[4],
+        '원내메일': data[5]
+    }
+    print(data)
+    with open('data.json', 'w') as f:
+        json.dump(data, f)
+
+    # 데이터 저장 확인
+    with open('data.json', 'r') as f:
+        data = json.load(f)
+        print(data)
+        print('directory', os.listdir(os.getcwd()))
+
     return jsonify({
         "version": "2.0",
         "template": {
@@ -97,6 +116,7 @@ def gettime():
 
 @app.route('/validateData', methods=['POST'])
 def validate_data():
+    print('validation 시작.')
     input_data = request.get_json()
     errors = validate_input(input_data)
     results = {'errors': errors, 'valid': not errors}
