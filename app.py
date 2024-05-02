@@ -66,30 +66,32 @@ def getName():
     print(name)
     datas = list(name.split('/'))
     print(datas)
-    # data = {
-    #     '이름': datas[0],
-    #     '영어이름': datas[1],
-    #     '번호': datas[2],
-    #     '메일': datas[3],
-    #     '비밀번호': datas[4],
-    #     '원내메일': datas[5]
-    # }
-    # print(data)
-    # with open('data.json', 'w') as f:
-    #     json.dump(data, f)
+    if len(datas) == 5:
+        data = {
+            '이름': datas[0],
+            '영어이름': datas[1],
+            '번호': datas[2],
+            '메일': datas[3],
+            '비밀번호': datas[4],
+            '원내메일': datas[5]
+        }
+        print(data)
+        with open('data.json', 'w') as f:
+            json.dump(data, f)
 
-    # # 데이터 저장 확인
-    # with open('data.json', 'r') as f:
-    #     data = json.load(f)
-    #     print(data)
-    #     print('directory', os.listdir(os.getcwd()))
+        # 데이터 저장 확인
+        with open('data.json', 'r') as f:
+            data = json.load(f)
+            print(data)
+            print('directory', os.listdir(os.getcwd()))
+    
 
     return jsonify({
         "version": "2.0",
         "template": {
             "outputs": [{
                 "simpleText": {
-                    "text": f"입력된 이름 : {name}"
+                    "text": f"입력된 정보 : {name}"
                 }
             }]
         }
