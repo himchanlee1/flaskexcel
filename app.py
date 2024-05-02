@@ -127,6 +127,78 @@ def gettime():
     }
     return jsonify(response)
 
+    from flask import Flask, request, jsonify
+import json
+import re
+
+app = Flask(__name__)
+
+def validate_input(data):
+    errors = []
+    if not data['name'].strip():
+        errors.append("이름이 누락되었습니다.")
+    if not data['ename'].strip():
+        errors.append("영어 이름이 누락되었습니다.")
+    if not data['phone'].strip():
+        errors.append("전화번호가 누락되었습니다.")
+    if not re.match(r"^\S+@\S+\.\S+$", data['mail']):
+        errors.append("유효한 이메일 주소가 아닙니다.")
+    if not data['password'].strip():
+        errors.append("비밀번호가 누락되었습니다.")
+    if not re.match(r"^\S+@\S+\.\S+$", data['hosmail']):
+        errors.append("유효한 원내 메일 주소가 아닙니다.")
+    return errors
+
+@app.route('/validateData', methods=['POST'])
+def validate_data():
+    # 파일에서 사용자 정보 읽기
+    with open('data.json', 'r') as file:
+        user_data = json.load(file)
+
+    # 요청에서 전달된 사용자 입력
+    input_data = request.get_json()
+    name = input_data.get('name', '')
+    ename = input_data.get('ename', '')
+    phone = input_data.get('phone', '')
+    mail = input_data.get('mail', '')
+    password = input_data.get('password', '')
+    hosmail = input_data.get('hosmail', '')
+
+    # 사용자 입력을 검증
+    errors = validate_input({
+        'name': name,
+        'ename': ename,
+        'phone': phone,
+        'mail': mail,
+        'password': password,
+        'hosmail': hosmail
+    })
+
+    # 검증 결과 저장
+    results = {
+        'errors': errors,
+        'valid': not errors
+    }
+    with open('results.json', 'w') as file:
+        json.dump(results, file, indent=4)
+
+    # 결과를 사용자에게 반환
+    response = {
+        "version": "2.0",
+        "template": {
+            "outputs": [{
+                "simpleText": {
+                    "text": "검증 오류: " + ", ".join(errors) if errors else "모든 입력이 정상적으로 검증되었습니다."
+                }
+            }]
+        }
+    }
+    return jsonify(response)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080, debug=True)
+
+
 
 
 # 애플리케이션 실행
