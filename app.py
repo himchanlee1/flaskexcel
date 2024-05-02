@@ -67,10 +67,10 @@ def getName():
     data = {
         '이름': datas[0],
         '영어이름': datas[1],
-        '번호': data[2],
-        '메일': data[3],
-        '비밀번호': data[4],
-        '원내메일': data[5]
+        '번호': datas[2],
+        '메일': datas[3],
+        '비밀번호': datas[4],
+        '원내메일': datas[5]
     }
     print(data)
     with open('data.json', 'w') as f:
