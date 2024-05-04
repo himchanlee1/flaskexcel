@@ -1,6 +1,8 @@
 import easyocr
 import re
 
+import keras_ocr
+
 def extract_shipment_info(image_path):
     reader = easyocr.Reader(['en'])
     results = reader.readtext(image_path)
