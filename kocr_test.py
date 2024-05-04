@@ -1,18 +1,17 @@
-import keras_ocr
-import ssl
-ssl._create_default_https_context = ssl._create_unverified_context
 
+import pytesseract
+import cv2
+import numpy as np
 
-pipeline = keras_ocr.pipeline.Pipeline()
+kernel = np.ones((5, 5), np.uint8)
+path = 'form/waybill.jpg'
+image = cv2.imread(path)
+image = cv2.resize(image, None, fx=2, fy=2)
+image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-images = [
-    keras_ocr.tools.read(url) for url in [
-        'form/waybill.jpg'
-    ]
-]
+morph = cv2.morphologyEx(image, cv2.MORPH_GRADIENT, kernel)
 
-prediction_groups = pipeline.recognize(images)
-
-for predictions in prediction_groups:
-    for p in predictions:
-        print(p[0])
+text = pytesseract.image_to_string(morph, lang='kor+eng')
+text = text.split('\n')
+for t in text:
+    print(t)
