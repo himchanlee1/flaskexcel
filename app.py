@@ -115,7 +115,7 @@ def gettime():
     })
 
 
-
+# VAL COMPLETE.
 def validate_input(data): # info.json의 검증 함수
     errors = []
     if not data.get('이름', '').strip():
