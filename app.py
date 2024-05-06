@@ -147,7 +147,7 @@ def validate_data(data): # data.json의 검증 함수
     return errors
 
 @app.route('/validateData', methods=['POST'])
-def validate_data():
+def validate():
     print('validation 시작.')
     # input_data = request.get_json()['action']['params']['sys_text']
     # print('input_data:', input_data)
