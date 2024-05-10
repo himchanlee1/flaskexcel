@@ -35,6 +35,8 @@ def imageEdit(bill, date, img_path='bill/invoice.png'):
     cv2.imwrite(output_path, image)
     print('편집 및 저장 완료.')
 
+    return output_path
+
 # 시험 실행
 
 # from myeasyocr import extract_shipment_info

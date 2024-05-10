@@ -1,5 +1,9 @@
 from flask import Flask, request, jsonify
 import json, re, os
+from ocrapi import myocrapi
+from myexcel import *
+from myimageedit import imageEdit
+from myinvoiceemail import send_invoice_email
 
 app = Flask(__name__)
  
@@ -186,6 +190,55 @@ def validate():
                 }]
             }
         })
+    
+@app.route('/submit')
+def submit():
+    # 검증까지 완료되면
+    # ocr 수행, 이메일 전송
+    # 엑셀도 !!
+    isValid = False
+    with open('validation.json', 'r') as v:
+        checkValid = json.load(v) 
+        if checkValid['valid']:
+            # 유효함. 
+            isValid = True
+    if isValid:
+        # 이미지 가져와~
+
+        with open('data.json', 'r') as d:
+            imgUrls = d['이미지주소']
+            pickupdate = d['픽업날짜']
+            pickuptime = d['픽업시간']
+            blooddate = d['채혈날짜']
+
+            for img in imgUrls:
+                # ClovaAPI도 시도해보자. 
+                prof, weight, bill = myocrapi(img)
+                # excel 함수 가져와서 편집.
+                update_excel('form/코반스 픽업요청서 양식.xlsx', bill, weight, pickupdate, pickuptime, blooddate)
+
+                # 이미지 edit
+                saved_path = imageEdit(bill, pickupdate) # Expected Date of Delivery를 체크해줘야함. 이거 변수가 정확히 뭔지.
+                
+                #이메일전송
+                name = None
+                ename = None
+                number = None
+                navermail = None
+                naverpw = None 
+                compmail = None 
+
+                with open('info.json', 'r') as info:
+                    name = info['이름']
+                    ename = info['영어이름']
+                    number = info['번호']
+                    navermail = info['메일']
+                    naverpw = info['비밀번호']
+                    compmail = info['원내메일']
+
+                sendtomail = None
+                # 교수님에 따라 메일 주소가 다르려나..?
+                # send_invoice_email(navermail, sendtomail, 'Invoice 입니다.', '동일합니다.', '')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
