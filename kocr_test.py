@@ -6,7 +6,7 @@ from PIL import Image
 from io import BytesIO
 # 카카오용으로 남겨두자. 
 
-imgs = ['testimg/1.jpeg', 'testimg/2.jpeg', 'testimg/3.jpeg', 'form/waybill.jpg']
+# imgs = ['testimg/1.jpeg', 'testimg/2.jpeg', 'testimg/3.jpeg', 'form/waybill.jpg']
 api_url = 'https://wl11rjimfa.apigw.ntruss.com/custom/v1/30859/ea5fcbc02c05c115b55bbe64469072ec865b2fb60e1ee0fe60eb45dfb4d7e2c7/general'
 secret_key = 'ZlRDYlNTZk5RRlFxWW9hY1RjQkR3dVRjSlFmVE1pQUY='
 
@@ -88,5 +88,4 @@ def clovaOCR(image_file):
                 counter = 0  
 
     return prof, weight, waybill[-3]+waybill[-2]+waybill[-1]
-
-print(clovaOCR(imgs[0]))
+ 
