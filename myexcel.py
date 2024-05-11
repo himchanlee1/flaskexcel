@@ -1,5 +1,4 @@
-from openpyxl import load_workbook
-from myeasyocr import extract_shipment_info
+from openpyxl import load_workbook 
 from datetime import datetime
 
 def format_date(date_input):

@@ -38,8 +38,7 @@ def imageEdit(bill, date, img_path='bill/invoice.png'):
     return output_path
 
 # 시험 실행
-
-# from myeasyocr import extract_shipment_info
+ 
 # from myexcel import main, update_excel, read_excel, format_date
 
 # # image_path = r'C:\Python\bill\waybill.jpg'
