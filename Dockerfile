@@ -1,5 +1,9 @@
-RUN apt-get update -y
-RUN apt-get -y install libgl1-mesa-glx
-RUN apt-get install -y libglib2.0-0
-RUN apt-get update && apt-get install libgl1
+# 베이스 이미지 설정
+FROM python:3.10
 
+# 패키지 업데이트 및 libgl1-mesa-glx 설치
+RUN apt-get update && \
+    apt-get -y install libgl1-mesa-glx && \
+    rm -rf /var/lib/apt/lists/*
+
+# 나머지 작업 진행
