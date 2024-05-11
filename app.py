@@ -95,7 +95,7 @@ def getImage():
     print(request.get_json()['action']['params'])
     urls = request.get_json()['action']['params']
     print(urls.keys())
-    urls = urls["입력 이미지"]["secureUrls"]
+    urls = json.loads(urls["입력 이미지"])["secureUrls"]
     urls[0] = 'l'
     
     # 저장
