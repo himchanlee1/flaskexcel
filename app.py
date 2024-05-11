@@ -4,7 +4,8 @@ from ocrapi import myocrapi
 from kocr_test import clovaOCR
 from myexcel import *
 from myimageedit import imageEdit
-from myinvoiceemail import send_invoice_email
+from myinvoiceemail import send_invoice_email #invoice
+from myemail import send_mail # excel
 
 app = Flask(__name__)
  
@@ -219,7 +220,7 @@ def submit():
                 update_excel('form/코반스 픽업요청서 양식.xlsx', bill, weight, pickupdate, pickuptime, blooddate)
 
                 # 이미지 edit
-                saved_path = imageEdit(bill, pickupdate) # Expected Date of Delivery를 체크해줘야함. 이거 변수가 정확히 뭔지.
+                saved_invoice_path = imageEdit(bill, pickupdate) # Expected Date of Delivery를 체크해줘야함. 이거 변수가 정확히 뭔지.
                 
                 #이메일전송
                 name = None
@@ -237,9 +238,14 @@ def submit():
                     naverpw = info['비밀번호']
                     compmail = info['원내메일']
 
-                sendtomail = None
+                sendtomail = 'photo952@naver.com' # 고정값임.
                 # 교수님에 따라 메일 주소가 다르려나..?
-                # send_invoice_email(navermail, sendtomail, 'Invoice 입니다.', '동일합니다.', '')
 
+                # excel
+                send_mail(navermail, sendtomail, '코반스 픽업요청서 입니다.', '동일합니다.', mtype='plain', files='form/코반스 픽업요청서 양식.xlsx', username=navermail, password=naverpw)
+
+                # invoice (원내메일로 전송)
+                send_invoice_email(navermail, compmail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=saved_invoice_path, username=navermail, password=naverpw)
+                
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
