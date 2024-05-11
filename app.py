@@ -48,6 +48,8 @@ def getInfo():
         }
     })
 
+
+
 @app.route('/getName', methods=['POST'])
 def getName():
     name = request.get_json()['action']['params']['sys_text']
@@ -82,6 +84,33 @@ def getName():
             "outputs": [{
                 "simpleText": {
                     "text": f"입력된 정보 : {name}"
+                }
+            }]
+        }
+    })
+
+
+@app.route('/getImage', methods=['POST'])
+def getImage():
+    urls = request.get_json()['action']['params']['secureimage']['value']['secureUrls']
+    # 저장
+    print(urls)
+    with open('data.json', 'r') as f:
+        data = json.load(f)
+        data['이미지주소'] = urls
+        
+        with open('data.json', 'w') as f:
+            json.dump(data, f)
+
+
+     
+
+    return jsonify({
+        "version": "2.0",
+        "template": {
+            "outputs": [{
+                "simpleText": {
+                    "text": f"입력된 정보 : {urls}"
                 }
             }]
         }
@@ -165,6 +194,7 @@ def validate():
         }
         if len(errors) == 0:
             # 에러가 존재하지 않음. 
+            print('info.json에는 문제 x')
             isValid = {
                 'valid': 1
             }
@@ -173,6 +203,7 @@ def validate():
             data = json.load(f)
             errors = validate_data(data)
             if len(errors) > 0:
+                print('data.json에 문제 있다!')
                 isValid = {
                     'valid': 0
                 }
