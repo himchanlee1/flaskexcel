@@ -92,7 +92,8 @@ def getName():
 
 @app.route('/getImage', methods=['POST'])
 def getImage():
-    urls = request.get_json()['action']['params']['secureimage']['value']['secureUrls']
+    print(request.get_json()['action']['params'])
+    urls = request.get_json()['action']['params']['secureimage']['secureUrls']
     # 저장
     print(urls)
     with open('data.json', 'r') as f:
