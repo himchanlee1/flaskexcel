@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
-import json, re, os
-from ocrapi import myocrapi
+import json, re, os 
 from kocr_test import clovaOCR
 from myexcel import *
 from myimageedit import imageEdit
