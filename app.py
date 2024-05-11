@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import json, re, os
 from ocrapi import myocrapi
+from kocr_test import clovaOCR
 from myexcel import *
 from myimageedit import imageEdit
 from myinvoiceemail import send_invoice_email
@@ -213,7 +214,7 @@ def submit():
 
             for img in imgUrls:
                 # ClovaAPI도 시도해보자. 
-                prof, weight, bill = myocrapi(img)
+                prof, weight, bill = clovaOCR(img)
                 # excel 함수 가져와서 편집.
                 update_excel('form/코반스 픽업요청서 양식.xlsx', bill, weight, pickupdate, pickuptime, blooddate)
 

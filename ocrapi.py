@@ -53,7 +53,7 @@ def ocr_space_url(url, overlay=False, api_key='helloworld', language='eng'):
 
 
 # Use examples:
-# imgs = ['testimg/1.jpeg', 'testimg/2.jpeg', 'testimg/3.jpeg', 'form/waybill.jpg']
+imgs = ['testimg/1.jpeg', 'testimg/2.jpeg', 'testimg/3.jpeg', 'form/waybill.jpg']
 
 # 이거 url되는 아래 함수로 수정해라. 
 def myocrapi(img): 
@@ -79,5 +79,8 @@ def myocrapi(img):
             bill = text
     return prof, weight, bill
         
+for i in imgs:
+    print(myocrapi(i))
+
 
 # test_url = ocr_space_url(url='http://i.imgur.com/31d5L5y.jpg')
