@@ -94,16 +94,18 @@ def getName():
 def getImage():
     print(request.get_json()['action']['params'])
     urls = request.get_json()['action']['params']
-    urls = urls['입력 이미지']['secureUrls']
+    urls = urls['입력 이미지']['secureUrls'].lower()
+    
     # 저장
     print(urls)
     with open('data.json', 'r') as f:
         data = json.load(f)
         data['이미지주소'] = json.loads(urls)
-        
+        print("이미지주소:", json.loads(urls))
         with open('data.json', 'w') as f:
             json.dump(data, f)
 
+    
 
     return jsonify({
         "version": "2.0",
