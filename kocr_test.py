@@ -15,7 +15,7 @@ def clovaOCR(image_file):
     image_file = image_file
 
     img_response = requests.get(image_file)
-    image = Image.open(BytesIO(response.content))
+    image = Image.open(BytesIO(img_response.content))
     saved_filename = str(random.randint(0, 99999))
     image.save('bill/'+saved_filename, 'jpg')
 
