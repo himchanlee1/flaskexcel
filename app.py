@@ -93,7 +93,7 @@ def getName():
 @app.route('/getImage', methods=['POST'])
 def getImage():
     print(request.get_json()['action']['params'])
-    urls = request.get_json()['action']['params']['secureimage']['secureUrls']
+    urls = request.get_json()['action']['params']['입력 이미지']['secureUrls']
     # 저장
     print(urls)
     with open('data.json', 'r') as f:
@@ -103,8 +103,6 @@ def getImage():
         with open('data.json', 'w') as f:
             json.dump(data, f)
 
-
-     
 
     return jsonify({
         "version": "2.0",
