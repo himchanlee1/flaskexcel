@@ -32,23 +32,24 @@ def send_invoice_email(send_from, send_to, subject, message, mtype='plain', file
 
     # Generate file path with current timestamp
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    file_to_send = rf'C:\Users\admin\Documents\GitHub\excel\modified_form\modified_invoice_{timestamp}.png'  # Dynamic file path
-
+    
     # Attach the file
-    part = MIMEBase('application', "octet-stream")
-    with open(file_to_send, 'rb') as file:
-        part.set_payload(file.read())
-    encoders.encode_base64(part)
-    part.add_header('Content-Disposition', f'attachment; filename="{Path(file_to_send).name}"')
-    msg.attach(part)
+    for path in files:
+        part = MIMEBase('application', "octet-stream")
+        with open(path, 'rb') as file:
+            part.set_payload(file.read())
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition', f'attachment; filename="{Path(path).name}"')
+        msg.attach(part)
 
     # Send the email
     smtp = smtplib.SMTP(server, port)
-    smtp.starttls()
+    if use_tls:
+        smtp.starttls()
     smtp.login(username, password)
     smtp.sendmail(send_from, send_to, msg.as_string())
+    print('이메일 전송 완료!')
     smtp.quit()
-    print('Email sent successfully!')
 
 # Example usage
 if __name__ == "__main__":
