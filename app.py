@@ -234,7 +234,7 @@ def validate():
             }
         })
     
-@app.route('/submit')
+@app.route('/submit', methods=['POST'])
 def submit():
     print("/submit에 위치함.")
     # 검증까지 완료되면
