@@ -103,14 +103,14 @@ def getImage():
     # 결과를 리스트로 변환하여 출력
     # print(urls)
     url_list = list(urls)
-    res = eval("['"+url_list[0].replace(',', "','")[:-1]+"']")
+    url_list[-1] = url_list[-1][:-1]
 
     # 저장
      
     with open('data.json', 'r') as f:
         data = json.load(f)
-        data['이미지주소'] = res
-        print("이미지주소:", res)
+        data['이미지주소'] = url_list
+        print("이미지주소:", url_list)
         with open('data.json', 'w') as f:
             json.dump(data, f)
 
