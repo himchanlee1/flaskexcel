@@ -6,7 +6,12 @@ from email import encoders
 from datetime import datetime
 from pathlib import Path
 
-def send_invoice_email(send_from, send_to, subject, message, username, password, server="smtp.naver.com", port=587):
+def send_invoice_email(send_from, send_to, subject, message, mtype='plain', files=[],
+              server="smtp.naver.com", port=587, username='', password='',
+              use_tls=True):
+    # send_from, send_to, subject, message, mtype='plain', files=[],
+            #   server="smtp.naver.com", port=587, username='', password='',
+            #   use_tls=True
     """Send an invoice email with an attachment.
     
     Args:
