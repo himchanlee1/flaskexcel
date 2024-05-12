@@ -15,9 +15,11 @@ def imageEdit(bill, date, img_path='form/invoice.png'):
     }
 
     # 사용할 폰트와 크기 설정
-    font_path = "arial.ttf"  # 사용할 폰트 파일의 경로
-    font_size = 14
-    font = ImageFont.truetype(font_path, font_size)
+    # font_path = "arial.ttf"  # 사용할 폰트 파일의 경로
+    # font_size = 14
+    # font = ImageFont.truetype(font_path, font_size)
+
+    font = ImageFont.load_default()
 
     # 텍스트와 좌표에 텍스트를 이미지에 추가합니다.
     draw = ImageDraw.Draw(image)
