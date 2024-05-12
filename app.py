@@ -278,7 +278,8 @@ def submit():
                 naverpw = None 
                 compmail = None 
 
-                with open('info.json', 'r') as info:
+                with open('info.json', 'r') as i:
+                    info = json.load(i)
                     name = info['이름']
                     ename = info['영어이름']
                     number = info['번호']
