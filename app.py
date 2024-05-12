@@ -254,10 +254,11 @@ def submit():
         # 이미지 가져와~
 
         with open('data.json', 'r') as d:
-            imgUrls = d['이미지주소']
-            pickupdate = d['픽업날짜']
-            pickuptime = d['픽업시간']
-            blooddate = d['채혈날짜']
+            dd = json.load(d)
+            imgUrls = dd['이미지주소']
+            pickupdate = dd['픽업날짜']
+            pickuptime = dd['픽업시간']
+            blooddate = dd['채혈날짜']
 
             for img in imgUrls:
                 # ClovaAPI도 시도해보자. 
