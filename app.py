@@ -249,7 +249,7 @@ def submit():
     checkValid['valid'] = 0
     with open('validation.json', 'w') as v:
         json.dump(checkValid, v)
-
+    print("isValid:", isValid)
     if isValid:
         # 이미지 가져와~
 
@@ -316,17 +316,18 @@ def submit():
                     }]
                 }
             })
-    return jsonify({
+    else:
+        return jsonify({
 
-        "version": "2.0",
-        "template": {
-            "outputs": [{
-                "simpleText": {
-                    "text": "전송실패."
-                }
-            }]
-        }
-    })
+            "version": "2.0",
+            "template": {
+                "outputs": [{
+                    "simpleText": {
+                        "text": "전송실패."
+                    }
+                }]
+            }
+        })
 
                 
 if __name__ == '__main__':
