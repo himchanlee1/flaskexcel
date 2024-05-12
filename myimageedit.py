@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 from datetime import datetime
 
-def imageEdit(bill, date, img_path='bill/invoice.png'):
+def imageEdit(bill, date, img_path='form/invoice.png'):
     # 이미지를 로드합니다.
     image_path = r'{}'.format(img_path)  # 로드할 이미지의 경로 (invoice)
     image = Image.open(image_path)

@@ -263,6 +263,7 @@ def submit():
             for img in imgUrls:
                 # ClovaAPI도 시도해보자. 
                 prof, weight, bill = clovaOCR(img)
+                print('[{} {} {}]'.format(prof, weight, bill))
                 # excel 함수 가져와서 편집.
                 update_excel('form/코반스 픽업요청서 양식.xlsx', bill, weight, pickupdate, pickuptime, blooddate)
 
