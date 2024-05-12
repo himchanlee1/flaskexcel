@@ -10,7 +10,7 @@ import os
 
 
 def send_mail(send_from, send_to, subject, message, mtype='plain', files=[],
-              server="localhost", port=587, username='', password='',
+              server="smtp.naver.com", port=587, username='', password='',
               use_tls=True):
     """Compose and send email with provided info and attachments.
 
