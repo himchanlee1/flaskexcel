@@ -30,7 +30,7 @@ def imageEdit(bill, date, img_path='form/invoice.png'):
     # 현재 날짜와 시간을 포함하는 고유한 파일명을 생성합니다.
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     output_path = rf'bill/modified_invoice_{timestamp}.png'
-
+    print("Invoice Output Path:", output_path)
     # 변경된 이미지를 저장합니다.
     image.save(output_path)
     print('편집 및 저장 완료.')

@@ -293,8 +293,8 @@ def submit():
                 # excel
                 send_mail(navermail, sendtomail, '코반스 픽업요청서 입니다.', '동일합니다.', mtype='plain', files=['form/코반스 픽업요청서 양식.xlsx'], username=navermail, password=naverpw)
 
-                # invoice (원내메일로 전송)
-                send_invoice_email(navermail, compmail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=[saved_invoice_path], username=navermail, password=naverpw)
+                # invoice (원내메일로 전송) 나중에 이걸 수정하자..
+                send_invoice_email(navermail, sendtomail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=[saved_invoice_path], username=navermail, password=naverpw)
 
             data = {
                     "픽업날짜":"",
