@@ -98,12 +98,19 @@ def getImage():
     urls = json.loads(urls["입력 이미지"])["secureUrls"]
     print(urls, type(urls)) 
     
+    urls = re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', urls)
+
+    # 결과를 리스트로 변환하여 출력
+    # print(urls)
+    url_list = list(urls)
+    res = eval("['"+url_list[0].replace(',', "','")[:-1]+"']")
+
     # 저장
      
     with open('data.json', 'r') as f:
         data = json.load(f)
-        data['이미지주소'] = json.loads(urls)
-        print("이미지주소:", json.loads(urls))
+        data['이미지주소'] = res
+        print("이미지주소:", res)
         with open('data.json', 'w') as f:
             json.dump(data, f)
 
