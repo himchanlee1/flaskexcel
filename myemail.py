@@ -34,7 +34,7 @@ def send_mail(send_from, send_to, subject, message, mtype='plain', files=[],
     msg['Subject'] = subject
 
     msg.attach(MIMEText(message, mtype))
-
+ 
     for path in files:
         part = MIMEBase('application', "octet-stream")
         with open(path, 'rb') as file:
@@ -58,7 +58,7 @@ pw = '본인이메일비밀번호'
 email = '본인이메일주소'
 
 # 코반스 픽업요청서 양식 경로
-path='bill/코반스 픽업요청서 양식.xlsx'
+path='form/코반스 픽업요청서 양식.xlsx'
 
 # 네이버의 경우 server='smtp.naver.com'
 # # send_mail(send_from=email, send_to=['수신자이메일주소'],

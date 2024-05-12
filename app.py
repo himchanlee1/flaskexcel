@@ -291,10 +291,10 @@ def submit():
                 # 교수님에 따라 메일 주소가 다르려나..?
 
                 # excel
-                send_mail(navermail, sendtomail, '코반스 픽업요청서 입니다.', '동일합니다.', mtype='plain', files='form/코반스 픽업요청서 양식.xlsx', username=navermail, password=naverpw)
+                send_mail(navermail, sendtomail, '코반스 픽업요청서 입니다.', '동일합니다.', mtype='plain', files=['form/코반스 픽업요청서 양식.xlsx'], username=navermail, password=naverpw)
 
                 # invoice (원내메일로 전송)
-                send_invoice_email(navermail, compmail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=saved_invoice_path, username=navermail, password=naverpw)
+                send_invoice_email(navermail, compmail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=[saved_invoice_path], username=navermail, password=naverpw)
 
             data = {
                     "픽업날짜":"",
