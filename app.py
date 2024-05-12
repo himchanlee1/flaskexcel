@@ -236,6 +236,7 @@ def validate():
     
 @app.route('/submit')
 def submit():
+    print("/submit에 위치함.")
     # 검증까지 완료되면
     # ocr 수행, 이메일 전송
     # 엑셀도 !!
@@ -282,18 +283,7 @@ def submit():
                     navermail = info['메일']
                     naverpw = info['비밀번호']
                     compmail = info['원내메일']
-
-                data = {
-                    "픽업날짜":"",
-                    "픽업시간":"",
-                    "채혈날짜":"", 
-                    "이미지주소":[] 
-                }
-
-                with open('data.json', 'w') as f: 
-                    json.dump(data, f)
-
-
+ 
                 sendtomail = 'photo952@naver.com' # 고정값임.
                 # 교수님에 따라 메일 주소가 다르려나..?
 
@@ -303,16 +293,37 @@ def submit():
                 # invoice (원내메일로 전송)
                 send_invoice_email(navermail, compmail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=saved_invoice_path, username=navermail, password=naverpw)
 
-                return jsonify({
-                    "version": "2.0",
-                    "template": {
-                        "outputs": [{
-                            "simpleText": {
-                                "text": "전송완료"
-                            }
-                        }]
-                    }
-                })
+            data = {
+                    "픽업날짜":"",
+                    "픽업시간":"",
+                    "채혈날짜":"", 
+                    "이미지주소":[] 
+                }
+
+            with open('data.json', 'w') as f: 
+                json.dump(data, f)
+
+            return jsonify({
+                "version": "2.0",
+                "template": {
+                    "outputs": [{
+                        "simpleText": {
+                            "text": "전송완료"
+                        }
+                    }]
+                }
+            })
+    return jsonify({
+
+        "version": "2.0",
+        "template": {
+            "outputs": [{
+                "simpleText": {
+                    "text": "전송실패."
+                }
+            }]
+        }
+    })
 
                 
 if __name__ == '__main__':
