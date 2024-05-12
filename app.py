@@ -246,9 +246,9 @@ def submit():
         if checkValid['valid']:
             # 유효함. 
             isValid = True
+    checkValid['valid'] = 0
     with open('validation.json', 'w') as v:
-        validjson = json.load(v)
-        validjson['valid'] = 0
+        json.dump(checkValid, v)
 
     if isValid:
         # 이미지 가져와~
