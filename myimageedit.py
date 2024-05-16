@@ -1,9 +1,9 @@
 from PIL import Image, ImageDraw, ImageFont
 from datetime import datetime
 
-def imageEdit(bill, date, img_path='form/invoice.png'):
+def imageEdit(bill, date, img_path):
     # 이미지를 로드합니다.
-    image_path = r'{}'.format(img_path)  # 로드할 이미지의 경로 (invoice)
+    image_path = r'{}'.format(img_path)  # 로드할 이미지의 경로
     image = Image.open(image_path)
 
     # 텍스트와 좌표 설정
@@ -13,11 +13,6 @@ def imageEdit(bill, date, img_path='form/invoice.png'):
         "Him Chan Lee": (200, 745), # Shippers Signature의 좌표
         "SC": (200, 770)            # Shippers Name & Title의 좌표
     }
-
-    # 사용할 폰트와 크기 설정
-    # font_path = "arial.ttf"  # 사용할 폰트 파일의 경로
-    # font_size = 14
-    # font = ImageFont.truetype(font_path, font_size)
 
     font = ImageFont.load_default()
 
@@ -36,17 +31,3 @@ def imageEdit(bill, date, img_path='form/invoice.png'):
     print('편집 및 저장 완료.')
 
     return output_path
-
-# 시험 실행
- 
-# from myexcel import main, update_excel, read_excel, format_date
-
-# # image_path = r'C:\Python\bill\waybill.jpg'
-# # file_path = r'C:\Python\bill\코반스 픽업요청서 양식.xlsx'
-
- 
-# file_path = r'bill/코반스 픽업요청서 양식.xlsx'
-# invoice_path = r'bill/invoice.png'
-
-# bill, date = read_excel(file_path=file_path) 
-# imageEdit(invoice_path, bill, date)
