@@ -262,13 +262,24 @@ def submit():
 
             for img in imgUrls:
                 # ClovaAPI도 시도해보자. 
+
+                # 이미지 파일명을 이름과 매핑
+                name_to_image = {
+                    'Young Suk Park': 'form/박영석.jpg',
+                    'Seung Tae Kim': 'form/김승태.jpg',
+                    'Jung Yong Hong': 'form/홍정용.jpg',
+                    'Jeeyun Lee': 'form/이지연.jpg',
+                    'SeHoon Park': 'form/박세훈.jpg',
+                    'Joon Oh Park': 'form/박준오.jpg'
+                }
+
                 prof, weight, bill = clovaOCR(img)
                 print('[{} {} {}]'.format(prof, weight, bill))
                 # excel 함수 가져와서 편집.
                 update_excel('form/코반스 픽업요청서 양식.xlsx', bill, weight, pickupdate, pickuptime, blooddate)
 
                 # 이미지 edit
-                saved_invoice_path = imageEdit(bill, pickupdate) # Expected Date of Delivery를 체크해줘야함. 이거 변수가 정확히 뭔지.
+                saved_invoice_path = imageEdit(bill, pickupdate, name_to_image[prof]) # Expected Date of Delivery를 체크해줘야함. 이거 변수가 정확히 뭔지.
                 
                 #이메일전송
                 name = None
@@ -290,10 +301,10 @@ def submit():
                 sendtomail = 'photo952@naver.com' # 고정값임.
                 # 교수님에 따라 메일 주소가 다르려나..?
 
-                # excel
+                # excel - 이것도 전송되는 메일주소 변경
                 send_mail(navermail, sendtomail, '코반스 픽업요청서 입니다.', '동일합니다.', mtype='plain', files=['form/코반스 픽업요청서 양식.xlsx'], username=navermail, password=naverpw)
 
-                # invoice (원내메일로 전송) 나중에 이걸 수정하자..
+                # invoice (원내메일로 전송) 나중에 이걸 수정하자.. - 이것도 전송되는 메일주소 변경
                 send_invoice_email(navermail, sendtomail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=[saved_invoice_path], username=navermail, password=naverpw)
 
             data = {

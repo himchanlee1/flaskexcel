@@ -5,16 +5,7 @@ import json, random
 from PIL import Image
 from io import BytesIO
 
-# 이미지 파일명을 이름과 매핑
-name_to_image = {
-    'Young Suk Park': 'form/박영석.jpg',
-    'Seung Tae Kim': 'form/김승태.jpg',
-    'Jung Yong Hong': 'form/홍정용.jpg',
-    'Jeeyun Lee': 'form/이지연.jpg',
-    'SeHoon Park': 'form/박세훈.jpg',
-    'Joon Oh Park': 'form/박준오.jpg'
-}
-
+ 
 api_url = 'https://wl11rjimfa.apigw.ntruss.com/custom/v1/30859/ea5fcbc02c05c115b55bbe64469072ec865b2fb60e1ee0fe60eb45dfb4d7e2c7/general'
 secret_key = 'ZlRDYlNTZk5RRlFxWW9hY1RjQkR3dVRjSlFmVE1pQUY='
 
