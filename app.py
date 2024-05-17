@@ -316,6 +316,9 @@ def submit():
 
             with open('data.json', 'w') as f: 
                 json.dump(data, f)
+            
+            # 전송한 invoice는 바로 삭제 요망. (유저별로 폴더를 만들거나해서. pythonanywhere 무료가 512mb 지원이기에)
+
 
             return jsonify({
                 "version": "2.0",
