@@ -33,7 +33,7 @@ def imageEdit(bill, date, img_path, ename):
         m = 'NOV'
     elif month == '12':
         m = 'DEC'
-    newdate = date[:2]+m+"20"+date[-2:]
+    newdate = date[-2:]+m+"20"+date[:2]
 
     # 텍스트와 좌표 설정
     texts_and_positions = {

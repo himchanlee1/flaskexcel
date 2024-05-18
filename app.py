@@ -255,21 +255,22 @@ def validate():
             "template": {
                 "outputs": [{
                     "simpleText": {
-                        "text": '''
-                                {}
-                                [입력된 내용]
-                                이름: {},
-                                영어이름: {}
-                                번호: {}
-                                메일: {}
-                                비밀번호: {}
-                                원내메일: {}
-                                ---
-                                픽업날짜: {}
-                                픽업시간: {}
-                                채혈날짜: {}
-                                이미지주소: {}
-                                '''.format(response_text, name, ename, number, mail, pw, cmail, pdate, pTime, bDate, imgUrl)      
+                        "text": 
+                        '''
+                        {}
+                        [입력된 내용]
+                        이름: {},
+                        영어이름: {}
+                        번호: {}
+                        메일: {}
+                        비밀번호: {}
+                        원내메일: {}
+                        ---
+                        픽업날짜: {}
+                        픽업시간: {}
+                        채혈날짜: {}
+                        이미지주소: {}
+                        '''.format(response_text, name, ename, number, mail, pw, cmail, pdate, pTime, bDate, imgUrl)      
                     }
                 }]
             }
