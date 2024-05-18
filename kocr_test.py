@@ -74,9 +74,6 @@ def clovaOCR(image_file):
                 counter = 0
 
     # 불러올 이미지 파일명 결정
-    if prof:
-        image_to_load = name_to_image.get(prof)
-    else:
-        image_to_load = None
+    
 
-    return prof, weight, waybill[-3] + waybill[-2] + waybill[-1], image_to_load
+    return prof, weight, waybill[-3] + waybill[-2] + waybill[-1]
