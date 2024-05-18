@@ -291,24 +291,26 @@ def submit():
                     naverpw = info['비밀번호']
                     compmail = info['원내메일']
 
+                print("입력된 이름 및 번호:{},{}".format(name, number))
+
                 prof, weight, bill = clovaOCR(img)
                 print('[{} {} {}]'.format(prof, weight, bill))
                 # excel 함수 가져와서 편집.
                 update_excel('form/코반스 픽업요청서 양식.xlsx', bill, weight, pickupdate, pickuptime, blooddate, name, number)
 
                 # 이미지 edit
-                saved_invoice_path = imageEdit(bill, pickupdate, name_to_image[prof]) # Expected Date of Delivery를 체크해줘야함. 이거 변수가 정확히 뭔지.
+                saved_invoice_path = imageEdit(bill, pickupdate, name_to_image[prof], ename) # Expected Date of Delivery를 체크해줘야함. 이거 변수가 정확히 뭔지.
                 
                 
  
-                sendtomail = 'photo952@naver.com' # 고정값임.
-                # 교수님에 따라 메일 주소가 다르려나..?
+                testmail = 'photo952@naver.com'
+                excelsendmail = "krwmx@dhl.com"
 
-                # excel - 이것도 전송되는 메일주소 변경
-                send_mail(navermail, "krwmx@dhl.com", '삼성서울병원 코반스 픽업 문의 드립니다.', '연구진행 위해 검체 픽업 문의드립니다.', mtype='plain', files=['form/코반스 픽업요청서 양식.xlsx'], username=navermail, password=naverpw)
+
+                send_mail(navermail, testmail, '삼성서울병원 코반스 픽업 문의 드립니다.', '연구진행 위해 검체 픽업 문의드립니다.', mtype='plain', files=['form/코반스 픽업요청서 양식.xlsx'], username=navermail, password=naverpw)
 
                 # invoice (원내메일로 전송) 나중에 이걸 수정하자.. - 이것도 전송되는 메일주소 변경
-                send_invoice_email(navermail, compmail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=[saved_invoice_path], username=navermail, password=naverpw)
+                send_invoice_email(navermail, testmail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=[saved_invoice_path], username=navermail, password=naverpw)
 
             data = {
                     "픽업날짜":"",

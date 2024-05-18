@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 from datetime import datetime
 
-def imageEdit(bill, date, img_path):
+def imageEdit(bill, date, img_path, ename):
     # 이미지를 로드합니다.
     image_path = r'{}'.format(img_path)  # 로드할 이미지의 경로
     image = Image.open(image_path)
@@ -10,7 +10,7 @@ def imageEdit(bill, date, img_path):
     texts_and_positions = {
         "{}".format(bill): (360, 1050),  # House Air Bill #의 좌표
         "{}".format(date): (390, 1090),   # Expected Date of delivery의 좌표
-        "Him Chan Lee": (370, 1180), # Shippers Signature의 좌표
+        "{}".format(ename): (370, 1180), # Shippers Signature의 좌표
         "SC": (370, 1230)            # Shippers Name & Title의 좌표
     }
 
