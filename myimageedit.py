@@ -8,8 +8,8 @@ def imageEdit(bill, date, img_path):
 
     # 텍스트와 좌표 설정
     texts_and_positions = {
-        "{}".format(bill): (360, 1070),  # House Air Bill #의 좌표
-        "{}".format(date): (390, 1110),   # Expected Date of delivery의 좌표
+        "{}".format(bill): (360, 1050),  # House Air Bill #의 좌표
+        "{}".format(date): (390, 1090),   # Expected Date of delivery의 좌표
         "Him Chan Lee": (370, 1180), # Shippers Signature의 좌표
         "SC": (370, 1230)            # Shippers Name & Title의 좌표
     }
