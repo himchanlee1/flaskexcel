@@ -9,7 +9,7 @@ def format_date(date_input):
         raise ValueError(f"날짜 형식을 인식할 수 없습니다: {date_input}")
 
 
-def update_excel(file_path, waybill_number, shipment_weight, pickup_date, ready_time, blood_collection_date):
+def update_excel(file_path, waybill_number, shipment_weight, pickup_date, ready_time, blood_collection_date, name, number):
     book = load_workbook(file_path)
     sheet = book.active
 
@@ -17,6 +17,8 @@ def update_excel(file_path, waybill_number, shipment_weight, pickup_date, ready_
     temperature_status = 'F' if shipment_weight_num >= 4.1 else 'A' if shipment_weight_num == 1.0 else 'Unknown'
 
     sheet['B5'] = datetime.now().date()
+    sheet['H5'] = name
+    sheet['I5'] = number
     sheet['D5'] = waybill_number
     sheet['E5'] = temperature_status
     sheet['K5'] = format_date(pickup_date)
