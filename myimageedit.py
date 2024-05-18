@@ -8,13 +8,13 @@ def imageEdit(bill, date, img_path):
 
     # 텍스트와 좌표 설정
     texts_and_positions = {
-        "{}".format(bill): (200, 670),  # House Air Bill #의 좌표
-        "{}".format(date): (250, 695),   # Expected Date of delivery의 좌표
-        "Him Chan Lee": (200, 745), # Shippers Signature의 좌표
-        "SC": (200, 770)            # Shippers Name & Title의 좌표
+        "{}".format(bill): (360, 1070),  # House Air Bill #의 좌표
+        "{}".format(date): (390, 1110),   # Expected Date of delivery의 좌표
+        "Him Chan Lee": (370, 1180), # Shippers Signature의 좌표
+        "SC": (370, 1230)            # Shippers Name & Title의 좌표
     }
 
-    font = ImageFont.load_default()
+    font = ImageFont.truetype("arial.ttf", 20)
 
     # 텍스트와 좌표에 텍스트를 이미지에 추가합니다.
     draw = ImageDraw.Draw(image)
