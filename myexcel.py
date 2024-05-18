@@ -1,5 +1,5 @@
 from openpyxl import load_workbook 
-from datetime import datetime
+from datetime import datetime, date
 
 
 def format_date(date_input):
@@ -16,7 +16,7 @@ def update_excel(file_path, waybill_number, shipment_weight, pickup_date, ready_
     shipment_weight_num = float(shipment_weight)
     temperature_status = 'F' if shipment_weight_num >= 4.1 else 'A' if shipment_weight_num == 1.0 else 'Unknown'
 
-    sheet['B5'] = datetime.date.today().strftime("%Y-%m-%d")
+    sheet['B5'] = date.today().strftime("%Y-%m-%d")
     sheet['D5'] = waybill_number
     sheet['E5'] = temperature_status
     sheet['K5'] = format_date(pickup_date)
