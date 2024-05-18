@@ -223,14 +223,53 @@ def validate():
         with open('validation.json', 'w') as f:
             json.dump(isValid, f)
 
+        name = None
+        ename = None 
+        number = None
+        mail = None 
+        pw = None 
+        cmail = None
+        pdate = None 
+        pTime = None 
+        bDate = None
+        imgUrl = None
+
+        with open('data.json', 'r') as f:
+            fd = json.load(f)
+            pdate = fd['픽업날짜']
+            pTime = fd['픽업시간']
+            bDate = fd['채혈날짜']
+            imgUrl = fd['이미지주소']
+        with open('info.json', 'r') as f:
+            fd = json.load(f)
+            name = fd['이름']
+            ename = fd['영어이름']
+            number = fd['번호']
+            mail = fd['메일']
+            pw = fd['비밀번호']
+            cmail = fd['원내메일']
+
         response_text = "검증 오류: " + ", ".join(errors) if errors else "모든 입력이 정상적으로 검증되었습니다."
         return jsonify({
             "version": "2.0",
             "template": {
                 "outputs": [{
                     "simpleText": {
-                        "text": "{} / 입력된 내용: {}".format(response_text, json.dumps(data))
-                                          
+                        "text": '''
+                                {}
+                                [입력된 내용]
+                                이름: {},
+                                영어이름: {}
+                                번호: {}
+                                메일: {}
+                                비밀번호: {}
+                                원내메일: {}
+                                ---
+                                픽업날짜: {}
+                                픽업시간: {}
+                                채혈날짜: {}
+                                이미지주소: {}
+                                '''.format(response_text, name, ename, number, mail, pw, cmail, pdate, pTime, bDate, imgUrl)      
                     }
                 }]
             }
@@ -306,11 +345,11 @@ def submit():
                 testmail = 'photo952@naver.com'
                 excelsendmail = "krwmx@dhl.com"
 
+                # excelsendmail로
+                send_mail(navermail, testmail, '삼성서울병원 코반스 픽업 문의 드립니다.', '연구진행 위해 검체 픽업 문의드립니다.', mtype='plain', files=['form/코반스 픽업요청서 양식.xlsx'], username=navermail, password=naverpw)
 
-                send_mail(navermail, excelsendmail, '삼성서울병원 코반스 픽업 문의 드립니다.', '연구진행 위해 검체 픽업 문의드립니다.', mtype='plain', files=['form/코반스 픽업요청서 양식.xlsx'], username=navermail, password=naverpw)
-
-                # invoice (원내메일로 전송) 나중에 이걸 수정하자.. - 이것도 전송되는 메일주소 변경
-                send_invoice_email(navermail, compmail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=[saved_invoice_path], username=navermail, password=naverpw)
+                # compmail로
+                send_invoice_email(navermail, testmail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=[saved_invoice_path], username=navermail, password=naverpw)
 
             data = {
                     "픽업날짜":"",

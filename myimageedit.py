@@ -6,6 +6,35 @@ def imageEdit(bill, date, img_path, ename):
     image_path = r'{}'.format(img_path)  # 로드할 이미지의 경로
     image = Image.open(image_path)
 
+    
+    month = date[3:5]
+    m = None
+    if month == '01':
+        m = 'JAN'
+    elif month == '02':
+        m = 'FEB'
+    elif month == '03':
+        m = 'MAR'
+    elif month == '04':
+        m = 'APR'
+    elif month == '05':
+        m = 'MAY'
+    elif month == '06':
+        m = 'JUN'
+    elif month == '07':
+        m = 'JUL'
+    elif month == '08':
+        m = 'AUG'
+    elif month == '09':
+        m = 'SEP'
+    elif month == '10':
+        m = 'OCT'
+    elif month == '11':
+        m = 'NOV'
+    elif month == '12':
+        m = 'DEC'
+    newdate = date[:2]+m+"20"+date[-2:]
+
     # 텍스트와 좌표 설정
     texts_and_positions = {
         "{}".format(bill): (360, 1050),  # House Air Bill #의 좌표
