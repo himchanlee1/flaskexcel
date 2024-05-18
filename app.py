@@ -191,6 +191,7 @@ def validate_data(data): # data.json의 검증 함수
 
     return errors
 
+
 @app.route('/validateData', methods=['POST'])
 def validate():
     print('validation 시작.')
@@ -228,7 +229,8 @@ def validate():
             "template": {
                 "outputs": [{
                     "simpleText": {
-                        "text": response_text
+                        "text": "{} / 입력된 내용: {}".format(response_text, json.dumps(data))
+                                          
                     }
                 }]
             }
@@ -337,7 +339,7 @@ def submit():
             "template": {
                 "outputs": [{
                     "simpleText": {
-                        "text": "전송실패."
+                        "text": "전송실패. 검증을 완료해주세요."
                     }
                 }]
             }
