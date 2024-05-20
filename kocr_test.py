@@ -51,14 +51,16 @@ def clovaOCR(image_file):
             prof = 'Young Suk Park'
         elif 'Seung' in result['inferText']:
             prof = 'Seung Tae Kim'
-        elif 'Jeeyun' in result['inferText']:
-            prof = 'Jeeyun Lee'
+        # elif 'Jeeyun' in result['inferText']:
+        #     prof = 'Jeeyun Lee'
         elif 'SeHoon' in result['inferText']:
             prof = 'SeHoon Park'
         elif 'Joon' in result['inferText']:
             prof = 'Joon Oh Park'
         elif 'Hong' in result['inferText']:
             prof = 'Jung Yong Hong'
+        else:
+            prof = 'Jeeyun Lee'
 
         if '4.1' in result['inferText']:
             weight = '4.1'
