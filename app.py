@@ -317,8 +317,7 @@ def submit():
         # 이미지 가져와~
 
         with open('data.json', 'r') as d:
-            dd = json.load(d)
-            imgUrls = dd['이미지주소']
+            dd = json.load(d) 
             pickupdate = dd['픽업날짜']
             pickuptime = dd['픽업시간']
             blooddate = dd['채혈날짜']
