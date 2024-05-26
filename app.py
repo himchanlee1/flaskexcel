@@ -257,7 +257,7 @@ def validate():
             pTime = fd['픽업시간']
             bDate = fd['채혈날짜']
             waybill = fd['waybill']
-            weight = fd['waybill']
+            weight = fd['weight']
             prof = fd['prof']
         with open('info.json', 'r') as f:
             fd = json.load(f)
