@@ -323,7 +323,7 @@ def submit():
             blooddate = dd['채혈날짜']
             waybill = dd['waybill']
             weight = dd['weight']
-            prof = dd['weight']
+            prof = dd['prof']
 
             
 
