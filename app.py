@@ -364,10 +364,10 @@ def submit():
             excelsendmail = "krwmx@dhl.com"
 
             # excelsendmail로
-            send_mail(navermail, "krwmx@dhl.com", '삼성서울병원 코반스 픽업 문의 드립니다.', '연구진행 위해 검체 픽업 문의드립니다.', mtype='plain', files=['form/코반스 픽업요청서 양식.xlsx'], username=navermail, password=naverpw)
+            send_mail(navermail, testmail, '삼성서울병원 코반스 픽업 문의 드립니다.', '연구진행 위해 검체 픽업 문의드립니다.', mtype='plain', files=['form/코반스 픽업요청서 양식.xlsx'], username=navermail, password=naverpw)
 
             # compmail로
-            send_invoice_email(navermail, compmail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=[saved_invoice_path], username=navermail, password=naverpw)
+            send_invoice_email(navermail, testmail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=[saved_invoice_path], username=navermail, password=naverpw)
 
             # info json 초기화
             data = {
