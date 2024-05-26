@@ -106,11 +106,14 @@ def getImage():
     url_list[-1] = url_list[-1][:-1]
 
     # 저장
-     
+    prof, weight, bill = clovaOCR(url_list)
     with open('data.json', 'r') as f:
         data = json.load(f)
-        data['이미지주소'] = url_list
-        print("이미지주소:", url_list)
+
+        data['waybill'] = bill
+        data['weight'] = weight
+        data['prof'] = prof 
+
         with open('data.json', 'w') as f:
             json.dump(data, f)
 
@@ -121,7 +124,7 @@ def getImage():
         "template": {
             "outputs": [{
                 "simpleText": {
-                    "text": f"입력된 정보 : {urls}"
+                    "text": f"입력된 정보 : {prof}/{weight}/{bill}"
                 }
             }]
         }
@@ -185,9 +188,15 @@ def validate_data(data): # data.json의 검증 함수
         errors.append("픽업시간이 누락되었습니다.")
     if not data.get('채혈날짜', '').strip():
         errors.append("채혈날짜가 누락되었습니다.")
+    if not data.get('waybill', '').strip():
+        errors.append("waybill이 인식되지 않았습니다.")
+    if not data.get('weight', '').strip():
+        errors.append("weight가 인식되지 않았습니다.")
+    if not data.get('prof', '').strip():
+        errors.append("교수님 성함이 인식되지 않았습니다.")
 
-    if len(data.get('이미지주소', '')) == 0: # 저장된 이미지가 0개이면 오류.
-        errors.append('전송된 이미지가 없습니다.')
+    # if len(data.get('이미지주소', '')) == 0: # 저장된 이미지가 0개이면 오류.
+    #     errors.append('전송된 이미지가 없습니다.')
 
     return errors
 
@@ -232,14 +241,18 @@ def validate():
         pdate = None 
         pTime = None 
         bDate = None
-        imgUrl = None
+        waybill = None
+        weight = None 
+        prof = None
 
         with open('data.json', 'r') as f:
             fd = json.load(f)
             pdate = fd['픽업날짜']
             pTime = fd['픽업시간']
             bDate = fd['채혈날짜']
-            imgUrl = fd['이미지주소']
+            waybill = fd['waybill']
+            weight = fd['waybill']
+            prof = fd['prof']
         with open('info.json', 'r') as f:
             fd = json.load(f)
             name = fd['이름']
@@ -269,8 +282,10 @@ def validate():
                         픽업날짜: {}
                         픽업시간: {}
                         채혈날짜: {}
-                        이미지주소: {}
-                        '''.format(response_text, name, ename, number, mail, pw, cmail, pdate, pTime, bDate, imgUrl)      
+                        waybill: {}
+                        무게: {}
+                        교수님 성함: {}
+                        '''.format(response_text, name, ename, number, mail, pw, cmail, pdate, pTime, bDate, waybill, weight, prof)      
                     }
                 }]
             }
@@ -301,80 +316,86 @@ def submit():
             pickupdate = dd['픽업날짜']
             pickuptime = dd['픽업시간']
             blooddate = dd['채혈날짜']
+            waybill = dd['waybill']
+            weight = dd['weight']
+            prof = dd['weight']
 
-            for img in imgUrls:
-                # ClovaAPI도 시도해보자. 
+            
 
-                # 이미지 파일명을 이름과 매핑
-                name_to_image = {
-                    'Young Suk Park': 'form/박영석.jpg',
-                    'Seung Tae Kim': 'form/김승태.jpg',
-                    'Jung Yong Hong': 'form/홍정용.jpg',
-                    'Jeeyun Lee': 'form/이지연.jpg',
-                    'SeHoon Park': 'form/박세훈.jpg',
-                    'Joon Oh Park': 'form/박준오.jpg'
-                }
-                #이메일전송
-                name = None
-                ename = None
-                number = None
-                navermail = None
-                naverpw = None 
-                compmail = None 
+            # 이미지 파일명을 이름과 매핑
+            name_to_image = {
+                'Young Suk Park': 'form/박영석.jpg',
+                'Seung Tae Kim': 'form/김승태.jpg',
+                'Jung Yong Hong': 'form/홍정용.jpg',
+                'Jeeyun Lee': 'form/이지연.jpg',
+                'SeHoon Park': 'form/박세훈.jpg',
+                'Joon Oh Park': 'form/박준오.jpg'
+            }
+            #이메일전송
+            name = None
+            ename = None
+            number = None
+            navermail = None
+            naverpw = None 
+            compmail = None 
 
-                with open('info.json', 'r') as i:
-                    info = json.load(i)
-                    name = info['이름']
-                    ename = info['영어이름']
-                    number = info['번호']
-                    navermail = info['메일']
-                    naverpw = info['비밀번호']
-                    compmail = info['원내메일']
+            with open('info.json', 'r') as i:
+                info = json.load(i)
+                name = info['이름']
+                ename = info['영어이름']
+                number = info['번호']
+                navermail = info['메일']
+                naverpw = info['비밀번호']
+                compmail = info['원내메일']
 
-                print("입력된 이름 및 번호:{},{}".format(name, number))
+            print("입력된 이름 및 번호:{},{}".format(name, number))
 
-                prof, weight, bill = clovaOCR(img)
-                print('[{} {} {}]'.format(prof, weight, bill))
-                # excel 함수 가져와서 편집.
-                update_excel('form/코반스 픽업요청서 양식.xlsx', bill, weight, pickupdate, pickuptime, blooddate, name, number)
-
-                # 이미지 edit
-                saved_invoice_path = imageEdit(bill, pickupdate, name_to_image[prof], ename) # Expected Date of Delivery를 체크해줘야함. 이거 변수가 정확히 뭔지.
                 
-                
- 
-                testmail = 'photo952@naver.com'
-                excelsendmail = "krwmx@dhl.com"
+            print('[{} {} {}]'.format(prof, weight, waybill))
+            # excel 함수 가져와서 편집.
+            update_excel('form/코반스 픽업요청서 양식.xlsx', waybill, weight, pickupdate, pickuptime, blooddate, name, number)
 
-                # excelsendmail로
-                send_mail(navermail, excelsendmail, '삼성서울병원 코반스 픽업 문의 드립니다.', '연구진행 위해 검체 픽업 문의드립니다.', mtype='plain', files=['form/코반스 픽업요청서 양식.xlsx'], username=navermail, password=naverpw)
+            # 이미지 edit
+            saved_invoice_path = imageEdit(waybill, pickupdate, name_to_image[prof], ename) # Expected Date of Delivery를 체크해줘야함. 이거 변수가 정확히 뭔지.
+            
+            
 
-                # compmail로
-                send_invoice_email(navermail, compmail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=[saved_invoice_path], username=navermail, password=naverpw)
+            testmail = 'photo952@naver.com'
+            excelsendmail = "krwmx@dhl.com"
 
+            # excelsendmail로
+            send_mail(navermail, "krwmx@dhl.com", '삼성서울병원 코반스 픽업 문의 드립니다.', '연구진행 위해 검체 픽업 문의드립니다.', mtype='plain', files=['form/코반스 픽업요청서 양식.xlsx'], username=navermail, password=naverpw)
+
+            # compmail로
+            send_invoice_email(navermail, compmail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=[saved_invoice_path], username=navermail, password=naverpw)
+
+            # info json 초기화
             data = {
                     "픽업날짜":"",
                     "픽업시간":"",
                     "채혈날짜":"", 
-                    "이미지주소":[] 
+                    "waybill":"",
+                    "weight":"",
+                    "prof":"" 
                 }
-
+            # data.json 초기화
             with open('data.json', 'w') as f: 
                 json.dump(data, f)
+                print("data.json을 초기화 했습니다.")
             
             # 전송한 invoice는 바로 삭제 요망. (유저별로 폴더를 만들거나해서. pythonanywhere 무료가 512mb 지원이기에)
 
 
-            return jsonify({
-                "version": "2.0",
-                "template": {
-                    "outputs": [{
-                        "simpleText": {
-                            "text": "전송완료"
-                        }
-                    }]
-                }
-            })
+        return jsonify({
+            "version": "2.0",
+            "template": {
+                "outputs": [{
+                    "simpleText": {
+                        "text": "전송완료"
+                    }
+                }]
+            }
+        })
     else:
         return jsonify({
 
