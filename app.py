@@ -110,8 +110,21 @@ def getImage():
     weight = None
     bill = None 
 
-    for url in url_list:
-        prof, weight, bill = clovaOCR(url)
+    try:
+        for url in url_list:
+            prof, weight, bill = clovaOCR(url)
+    except:
+        return jsonify({
+        "version": "2.0",
+        "template": {
+            "outputs": [{
+                "simpleText": {
+                    "text": f"잘못된 형식의 이미지입니다."
+                }
+            }]
+        }
+    })
+
     print(prof, weight, bill)
     with open('data.json', 'r') as f:
         data = json.load(f)
@@ -369,7 +382,7 @@ def submit():
             excelsendmail = "krwmx@dhl.com"
 
             # excelsendmail로
-            send_mail(navermail, testmail, '삼성서울병원 코반스 픽업 문의 드립니다.', '연구진행 위해 검체 픽업 문의드립니다.', mtype='plain', files=['form/코반스 픽업요청서 양식.xlsx'], username=navermail, password=naverpw)
+            send_invoice_email(navermail, testmail, '삼성서울병원 코반스 픽업 문의 드립니다.', '연구진행 위해 검체 픽업 문의드립니다.', mtype='plain', files=['form/코반스 픽업요청서 양식.xlsx'], username=navermail, password=naverpw)
 
             # compmail로
             send_invoice_email(navermail, testmail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=[saved_invoice_path], username=navermail, password=naverpw)
