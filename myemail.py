@@ -30,7 +30,7 @@ def send_mail(send_from, send_to, subject, message, mtype='plain', files=[],
     msg = MIMEMultipart()
     msg['From'] = send_from
     msg['To'] = ', '.join(send_to)
-    # msg['Date'] = formatdate(localtime=True) <- 이 부분이 필요할까
+    msg['Date'] = formatdate(localtime=True)
     msg['Subject'] = subject
 
     msg.attach(MIMEText(message, 'plain'))
@@ -40,7 +40,8 @@ def send_mail(send_from, send_to, subject, message, mtype='plain', files=[],
         with open(path, 'rb') as file:
             part.set_payload(file.read())
         encoders.encode_base64(part)
-        part.add_header('Content-Disposition', f'attachment; filename="{Path(path).name}"')
+        part.add_header('Content-Disposition',
+                        'attachment', filename=Path(path).name)
         msg.attach(part)
 
     smtp = smtplib.SMTP(server, port)

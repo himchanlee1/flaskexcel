@@ -2,6 +2,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
+from email.utils import formatdate
 from email import encoders
 from datetime import datetime
 from pathlib import Path
@@ -27,6 +28,7 @@ def send_invoice_email(send_from, send_to, subject, message, mtype='plain', file
     msg = MIMEMultipart()
     msg['From'] = send_from
     msg['To'] = send_to
+    msg['Date'] = formatdate(localtime=True)
     msg['Subject'] = subject
     msg.attach(MIMEText(message, 'plain'))
 
@@ -39,7 +41,11 @@ def send_invoice_email(send_from, send_to, subject, message, mtype='plain', file
         with open(path, 'rb') as file:
             part.set_payload(file.read())
         encoders.encode_base64(part)
-        part.add_header('Content-Disposition', f'attachment; filename="{Path(path).name}"')
+        if '.xlsx' in path:
+            part.add_header('Content-Disposition',
+                        'attachment', filename=Path(path).name)
+        else:
+            part.add_header('Content-Disposition', f'attachment; filename="{Path(path).name}"')
         msg.attach(part)
 
     # Send the email
