@@ -104,9 +104,15 @@ def getImage():
     # print(urls)
     url_list = list(urls)
     url_list[-1] = url_list[-1][:-1]
-
+    
     # 저장
-    prof, weight, bill = clovaOCR(url_list)
+    prof = None
+    weight = None
+    bill = None 
+
+    for url in url_list:
+        prof, weight, bill = clovaOCR(url)
+    print(prof, weight, bill)
     with open('data.json', 'r') as f:
         data = json.load(f)
 
