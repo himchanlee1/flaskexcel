@@ -371,12 +371,12 @@ def submit():
                 
             print('[{} {} {}]'.format(prof, weight, waybill))
             # excel 함수 가져와서 편집.
-            update_excel('form/코반스 픽업요청서 양식.xlsx', waybill, weight, pickupdate, pickuptime, blooddate, name, number)
+            saved_excel_path = update_excel('form/코반스 픽업요청서 양식.xlsx', waybill, weight, pickupdate, pickuptime, blooddate, name, number)
 
             # 이미지 edit
             saved_invoice_path = imageEdit(waybill, pickupdate, name_to_image[prof], ename) # Expected Date of Delivery를 체크해줘야함. 이거 변수가 정확히 뭔지.
-            saved_excel_path = 'form/코반스 픽업요청서 양식.xlsx'
-            
+             
+            print("saved excel path:", saved_excel_path)
 
             testmail = 'photo952@naver.com'
             excelsendmail = "krwmx@dhl.com"

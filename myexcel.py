@@ -28,8 +28,9 @@ def update_excel(file_path, waybill_number, shipment_weight, pickup_date, ready_
     book.save(file_path)
     print("엑셀 파일이 성공적으로 업데이트 되었습니다.")
     book.close()
+    return file_path
 
-def read_pickup_date(file_path='C:\Python\bill\코반스 픽업요청서 양식.xlsx'):
+def read_pickup_date(file_path='form\코반스 픽업요청서 양식.xlsx'):
     book = load_workbook(file_path)
     sheet = book.active
 
