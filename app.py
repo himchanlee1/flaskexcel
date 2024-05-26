@@ -375,14 +375,14 @@ def submit():
 
             # 이미지 edit
             saved_invoice_path = imageEdit(waybill, pickupdate, name_to_image[prof], ename) # Expected Date of Delivery를 체크해줘야함. 이거 변수가 정확히 뭔지.
-            
+            saved_excel_path = 'form/코반스 픽업요청서 양식.xlsx'
             
 
             testmail = 'photo952@naver.com'
             excelsendmail = "krwmx@dhl.com"
 
             # excelsendmail로
-            send_invoice_email(navermail, testmail, '삼성서울병원 코반스 픽업 문의 드립니다.', '연구진행 위해 검체 픽업 문의드립니다.', mtype='plain', files=['form/코반스 픽업요청서 양식.xlsx'], username=navermail, password=naverpw)
+            send_invoice_email(navermail, testmail, '삼성서울병원 코반스 픽업 문의 드립니다.', '연구진행 위해 검체 픽업 문의드립니다.', mtype='plain', files=[saved_excel_path], username=navermail, password=naverpw)
 
             # compmail로
             send_invoice_email(navermail, testmail, 'invoice 입니다.', '동일합니다.', mtype='plain', files=[saved_invoice_path], username=navermail, password=naverpw)
