@@ -129,8 +129,8 @@ def getImage():
     with open('data.json', 'r') as f:
         data = json.load(f)
 
-        data['waybill'] = bill
-        data['weight'] = weight
+        data['waybill'] = str(bill)
+        data['weight'] = str(weight)
         data['prof'] = prof 
 
         with open('data.json', 'w') as f:
@@ -207,9 +207,9 @@ def validate_data(data): # data.json의 검증 함수
         errors.append("픽업시간이 누락되었습니다.")
     if not data.get('채혈날짜', '').strip():
         errors.append("채혈날짜가 누락되었습니다.")
-    if not data.get('waybill', '').strip():
+    if not str(data.get('waybill', '')).strip():
         errors.append("waybill이 인식되지 않았습니다.")
-    if not data.get('weight', '').strip():
+    if not str(data.get('weight', '')).strip():
         errors.append("weight가 인식되지 않았습니다.")
     if not data.get('prof', '').strip():
         errors.append("교수님 성함이 인식되지 않았습니다.")

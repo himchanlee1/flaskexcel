@@ -20,13 +20,13 @@ def clovaOCR(image_file):
         os.makedirs('bill')
 
     saved_filename = str(random.randint(0, 99999))
-    image_file = 'bill/' + saved_filename + '.jpeg'
+    image_file = 'bill/' + saved_filename + '.jpg'
     image.save(image_file)
 
     request_json = {
         'images': [
             {
-                'format': 'jpeg',
+                'format': 'jpg',
                 'name': 'demo'
             }
         ],
@@ -90,7 +90,7 @@ def clovaOCR_for_file(image_file):
     request_json = {
         'images': [
             {
-                'format': 'jpeg',
+                'format': 'jpg',
                 'name': 'demo'
             }
         ],
@@ -112,7 +112,7 @@ def clovaOCR_for_file(image_file):
 
     counter = 0
     isappend = False
-
+    # print(response)
     for result in response['images'][0]['fields']:
         if 'Suk' in result['inferText']:
             prof = 'Young Suk Park'
@@ -150,4 +150,11 @@ def clovaOCR_for_file(image_file):
 
 
 # for img in sorted(os.listdir('test_images/')):
+#     if img == '.DS_Store':
+#         continue
 #     print(img, clovaOCR_for_file('test_images/'+img))
+
+# import os 
+# print(os.listdir('test_images'))
+
+# print(clovaOCR_for_file('test_images/28.jpg'))
